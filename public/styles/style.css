@@ -36,3 +36,96 @@ nav a:hover {
 .home {
   color: white;
 }
+
+/*  */
+/*  */
+/* details  */
+
+/* div.details {
+  width: 100em;
+  margin: 3em auto;
+}
+
+.btn-delete:hover {
+  background-color: black;
+  color: white;
+  background-color: red;
+}
+
+.btn-edit:hover {
+  color: white;
+  background-color: blue;
+}
+
+.btn-like:hover {
+  color: white;
+  background-color: green;
+}
+
+#detailsBox {
+  background-color: rgba(255, 255, 255);
+  text-align: center;
+  display: flex;
+  max-width: 420em;
+  background-color: rgba(37, 134, 179, 0.904);
+  border-radius: 0.2rem;
+  margin: 3em auto;
+  padding: 1em;
+}
+
+#detailsBox > h1 {
+  margin-bottom: 0.5em;
+  font-size: 2em;
+  display: flex;
+}
+
+.detailsInfo img {
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 1rem;
+  margin-right: 10px;
+}
+
+.btn-delete,
+.btn-edit,
+.btn-like {
+  margin: 1em 0.5em;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5em;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.329);
+  color: black;
+}
+
+.likes {
+  margin-top: 30px;
+} */
+
+/*  */
+/*  */
+/* element */
+.home-image > img {
+  max-height: 20em;
+  max-width: 20em;
+  display: flex;
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.btn-details {
+  margin: 1em 0.5em;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5em;
+  font-size: 20px;
+  background-color: rgb(15, 131, 34);
+}
+
+.info {
+  display: inline-block;
+  margin: 1em 0.5em;
+  padding: 0.5rem;
+  border: none;
+}
