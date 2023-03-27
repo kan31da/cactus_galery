@@ -74,7 +74,7 @@ export const Details = () => {
                             <Link className="btn-delete" to="#" onClick={() => onDeleteClick(cactus._id)}>Delete</Link>
                         )}
 
-                        {canLike && (
+                        {!isOwner && canLike && (
                             <button className="btn-like" onClick={onLikeSubmit} >Like</button>
                         )}
 
