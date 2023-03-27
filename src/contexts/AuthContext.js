@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { useSessionStorage } from "../hooks/useSessionStorage";
 import { authServiceFactory } from "../services/authService";
 
-
-
 export const AuthContext = createContext();
 
 export const AuthProvider = ({
@@ -16,7 +14,6 @@ export const AuthProvider = ({
     const [auth, setAuth] = useSessionStorage('userData', {});
     // const [auth, setAuth] = useState({});
     const authService = authServiceFactory(auth.accessToken)
-
 
 
     const onLoginSubmit = async (data) => {
@@ -72,12 +69,9 @@ export const AuthProvider = ({
 
 
     const contex = {
-        // onEditSubmit,
-        // onDeleteClick,
         onLoginSubmit,
         onRegisterSubmit,
         onLogout,
-        // onCreateSubmit,
         userId: auth._id,
         token: auth.accessToken,
         userEmail: auth.email,

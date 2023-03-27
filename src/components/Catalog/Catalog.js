@@ -1,6 +1,11 @@
+import { useContext } from "react";
+import { CactusContext } from "../../contexts/CactusContext.js";
 import { CatalogItem } from "../CatalogItem/CatalogItem.js";
 
 export const Catalog = () => {
+
+    const { cactuses } = useContext(CactusContext)
+
     return (
         <section className="welcomePage">
 
@@ -13,8 +18,20 @@ export const Catalog = () => {
                 </p>
             </div>
 
-            <CatalogItem />
-            <CatalogItem />
+            <div id="cactuses">
+                <h1>Future Events</h1>
+                <div className="cactuses-container">
+
+                    {cactuses.length === 0 && (
+                        <h4 className="no-cactus">No Cactuses Yet...</h4>
+                    )}
+
+                    {cactuses.map(x =>
+                        <CatalogItem key={x._id} {...x} />
+                    )}
+
+                </div>
+            </div>
 
         </section >
     );

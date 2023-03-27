@@ -1,15 +1,25 @@
 import { Link } from "react-router-dom";
 
-export const CatalogItem = () => {
+export const CatalogItem = (
+    {
+        _id,
+        title,
+        type,
+        imageUrl,
+    }
+) => {
     return (
 
-        <div className="info">
+        <div className="cactusesInfo">
             <div className="home-image">
-                <img src="https://redsquareflowers.com/wp-content/uploads/2020/12/Cactus-plants-madison-wi.jpg" alt="" />
+                <img src={imageUrl} alt="" />
             </div>
             <div className="info">
-                <h4 >Cactus Plant</h4>
-                <Link className="btn-details" to="#">Details</Link>
+                <h4 className="title">{title}</h4>
+                <h6 className="type">{type}</h6>
+                <div className="info-buttons">
+                    <Link className="btn-details" to={`/Catalog/${_id}`}>Details</Link>
+                </div>
             </div>
         </div>
 

@@ -1,60 +1,85 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom"
 import { AuthContext } from "../../contexts/AuthContext";
+import { cactusServiceFactory } from "../../services/cactusService";
+import { likeServiceFactory } from "../../services/likeService";
 import { useService } from "../../hooks/useService";
-import { gameServiceFactory } from "../../service/gameService"
+import { CactusContext } from "../../contexts/CactusContext";
 
 
-export const GameDetails = () => {
+export const Details = () => {
 
-    const { userId, onDeleteClick } = useContext(AuthContext);
-    const [username, setUsername] = useState('');
-    const [comment, setComment] = useState('');
-    const { gameId } = useParams();
-    const [game, setGame] = useState({});
-    const gameService = useService(gameServiceFactory)
+
+    const { cactusId } = useParams();
+    const { userId } = useContext(AuthContext);
+    const { onDeleteClick } = useContext(CactusContext);
+
+    const [likes, setLikes] = useState(0);
+    const [cactus, setCactus] = useState({});
+    const [hasLike, setHasLike] = useState(1);
+
+    const likeService = useService(likeServiceFactory);
+    const cactusService = useService(cactusServiceFactory)
 
     useEffect(() => {
-        gameService.getOne(gameId)
-            .then(result => {
-                setGame(result);
-            })
-    }, [gameId]);
+        likeService.getLikes(cactusId)
+            .then(result => { setLikes(result) })
+    }, [cactusId]);
 
-    const onCommentSubmit = async (e) => {
+    useEffect(() => {
+        cactusService.getById(cactusId)
+            .then(result => { setCactus(result) })
+
+    }, [cactusId]);
+
+    useEffect(() => {
+        likeService.getOwnLikes(cactusId, userId)
+            .then(result => { setHasLike(result) })
+    }, [cactusId, userId]);
+
+    const isOwner = Boolean(cactus._ownerId === userId);
+    const canLike = Boolean(!isOwner && hasLike === 0);
+
+    const onLikeSubmit = async (e) => {
         e.preventDefault();
 
-        const result = await gameService.addComment(gameId, {
-            username,
-            comment,
-        });
-
-        setGame(state => ({ ...state, comments: { ...state.comments, [result._id]: result } }));
-        setUsername('');
-        setComment('');
+        await likeService.like(cactusId)
+        setLikes(state => state += 1)
+        setHasLike(1);
     };
 
-    const isOwner = game._ownerId === userId;
+
 
     return (
         <section id="detailsPage">
             <div id="detailsBox">
                 <div className="detailsInfo">
-                    <h1>Type: </h1>
+                    <h1>Title: {cactus.title}</h1>
                     <div>
-                        <img src="https://redsquareflowers.com/wp-content/uploads/2020/12/Cactus-plants-madison-wi.jpg" alt="" />
+                        <img src={cactus.imageUrl} alt="" />
                     </div>
                 </div>
 
                 <div className="details">
+                    <h2>Type: {cactus.type}</h2>
                     <h3>Description</h3>
-                    <p>We will pick the best looking prickly friend that is available today for you. Cactus is very easy to care for – simply provide the abundance of light, preferred direct sun, as well as watering once a month. Please keep in mind that the stock changes daily so we do not promise specific varieties"</p>
+                    <p>{cactus.description}</p>
                     <div className="buttons">
-                        <Link className="btn-delete" to="#">Delete</Link>
-                        <Link className="btn-edit" to="#">Edit</Link>
-                        <Link className="btn-like" to="#">Like</Link>
+
+                        {isOwner && (
+                            <Link className="btn-edit" to={`/edit/${cactus._id}`} >Edit</Link>
+                        )}
+
+                        {isOwner && (
+                            <Link className="btn-delete" to="#" onClick={() => onDeleteClick(cactus._id)}>Delete</Link>
+                        )}
+
+                        {canLike && (
+                            <button className="btn-like" onClick={onLikeSubmit} >Like</button>
+                        )}
+
                     </div>
-                    <p className="likes">Likes: 0</p>
+                    <p className="likes">Likes: {likes}</p>
                 </div>
             </div>
         </section>
