@@ -11,7 +11,7 @@ export const Details = () => {
 
 
     const { cactusId } = useParams();
-    const { userId } = useContext(AuthContext);
+    const { userId, isAuthenticated } = useContext(AuthContext);
     const { onDeleteClick } = useContext(CactusContext);
 
     const [likes, setLikes] = useState(0);
@@ -48,8 +48,6 @@ export const Details = () => {
         setHasLike(1);
     };
 
-
-
     return (
         <section id="detailsPage">
             <div id="detailsBox">
@@ -74,7 +72,7 @@ export const Details = () => {
                             <Link className="btn-delete" to="#" onClick={() => onDeleteClick(cactus._id)}>Delete</Link>
                         )}
 
-                        {!isOwner && canLike && (
+                        {isAuthenticated && canLike && (
                             <button className="btn-like" onClick={onLikeSubmit} >Like</button>
                         )}
 

@@ -19,7 +19,7 @@ export const Header = () => {
 
                         <Link to="/create">Add Cactus</Link>
                         <Link to="/logout">Logout</Link>
-                        <Link>{userEmail}</Link>
+                        <Link to="/profile">{userEmail}</Link>
                     </div>
 
                 )}
