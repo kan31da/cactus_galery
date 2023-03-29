@@ -24,6 +24,10 @@ export const CactusProvider = ({
 
     const onCreateSubmit = async (data) => {
 
+        if ([data.title, data.type, data.imageUrl, data.description].some((e) => e === "")) {
+            return alert("all fields are required !");
+        }
+
         const newCactus = await cactusService.createCactus(data);
 
         setCactuses(state => [...state, newCactus]);
