@@ -61,7 +61,7 @@ export const Create = () => {
                         onChange={changeHandler}
                     />
                 </div>
-                <button className="btn" type="submit">Submit</button>
+                <button className="btn" type="submit">Create Cactus</button>
             </form>
         </section >
     )

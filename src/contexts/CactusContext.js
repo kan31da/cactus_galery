@@ -37,18 +37,23 @@ export const CactusProvider = ({
 
     const onDeleteClick = async (cactusId) => {
 
-        await cactusService.deleteById(cactusId);
+        if (window.confirm("are you shure to delete ?")) {
+            await cactusService.deleteById(cactusId);
 
-        setCactuses(state => state.filter(x => x._id !== cactusId));
+            setCactuses(state => state.filter(x => x._id !== cactusId));
 
-        navigate('/catalog');
+            navigate('/catalog');
+        }
     };
 
     const onEditSubmit = async (data) => {
 
-        const editCactus = await cactusService.editCactus(data._id, data)
+        if (window.confirm("are you shure to edit ?")) {
+            const editCactus = await cactusService.editCactus(data._id, data)
 
-        setCactuses(state => [...state.filter(x => x._id !== data._id), editCactus]);
+            setCactuses(state => [...state.filter(x => x._id !== data._id), editCactus]);
+
+        }
 
         navigate(`/Catalog/${data._id}`);
     };
